@@ -46,7 +46,7 @@ Answer:"""
     response = bedrock_client.invoke_model(
         modelId='amazon.nova-lite-v1:0',
         body=json.dumps({
-            "messages": [{"role": "user", "content": prompt}],
+           "messages": [{"role": "user", "content": [{"text": prompt}]}],
             "inferenceConfig": {
                 "max_new_tokens": 3000,
                 "temperature": 0.1,
