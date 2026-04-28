@@ -20,8 +20,8 @@ def hr_index():
     documents = loader.load()
     splitter = RecursiveCharacterTextSplitter(
         separators=["\n\n", "\n", " ", ""],
-        chunk_size=100,
-        chunk_overlap=10
+        chunk_size=1000,
+        chunk_overlap=100
     )
     chunks = splitter.split_documents(documents)
     embeddings = BedrockEmbeddings(
@@ -33,7 +33,7 @@ def hr_index():
 
 def hr_rag_response(index, question):
     bedrock_client = get_bedrock_client()
-    docs = index.similarity_search(question, k=3)
+    docs = index.similarity_search(question, k=5)
     context = "\n\n".join([doc.page_content for doc in docs])
     prompt = f"""Use the following HR policy excerpts to answer the question accurately.
 
